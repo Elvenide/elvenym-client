@@ -1,0 +1,9 @@
+:host {
+    padding-block: 1.5rem;
+    width: 100%;
+    height: auto;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+    position: sticky;
+    top: 0;
+}

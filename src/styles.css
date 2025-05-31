@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+    --theme-darkest: #0c0b10;
+    --theme: #ab73ff;
+
+    --background: var(--theme-darkest);
+    --color: #d4d4d4;
+}
+
+* {
+    box-sizing: border-box;
+    border: 0 solid;
+    margin: 0;
+    padding: 0;
+}
