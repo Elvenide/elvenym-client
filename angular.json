@@ -51,6 +51,9 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "allowedHosts": ["elvenym-activity.elvenide.com"]
+          },
           "configurations": {
             "production": {
               "buildTarget": "client:build:production"
