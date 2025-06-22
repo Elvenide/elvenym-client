@@ -52,7 +52,8 @@
         "serve": {
           "builder": "@angular/build:dev-server",
           "options": {
-            "allowedHosts": ["elvenym-activity.elvenide.com"]
+            "allowedHosts": ["elvenym-activity.elvenide.com"],
+            "port": 4200
           },
           "configurations": {
             "production": {
