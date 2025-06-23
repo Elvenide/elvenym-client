@@ -51,6 +51,8 @@
 
 .letter {
     font-size: 33px;
+    line-height: 50px;
+    vertical-align: middle;
     text-transform: uppercase;
     font-weight: bold;
     text-align: center;

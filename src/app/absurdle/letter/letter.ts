@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 export const LetterState = {
   DISABLED: "disabled",
@@ -15,6 +15,6 @@ export const LetterState = {
   styleUrl: './letter.css'
 })
 export class Letter {
-  protected letter = '';
-  protected state = LetterState.DISABLED;
+  @Input() public letter = '';
+  @Input() public state = LetterState.DISABLED;
 }
