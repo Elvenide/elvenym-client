@@ -1,4 +1,4 @@
-<div class="box state-{{state}}" tabindex="-1">
+<div class="box state-{{state}}{{ typeAnimation ? ' type_animation' : '' }}{{ invalidAnimation ? ' invalid_animation' : '' }}">
     @if (letter != '') {
         <p class="letter">
             {{ letter }}

@@ -1,0 +1,10 @@
+<main class="main">
+    @if (loaded()) {
+        @for (guess of guesses(); track $index) {
+        <absurdle-row [active]="guess[1] == activeRow" [word]="guess[0]" [shouldTypeAnimate]="isTyping" [shouldInvalidAnimate]="guess[1] == activeRow && isInvalid()" (winEvent)="onWin()"></absurdle-row>
+        }
+    }
+    @else {
+        Loading...
+    }
+</main>

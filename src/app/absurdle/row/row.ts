@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, OnChanges, output, signal } from '@angular/core';
 import { Letter, LetterState } from '../letter/letter';
 import { AbsurdleService } from '../service';
 
@@ -8,9 +8,13 @@ import { AbsurdleService } from '../service';
   templateUrl: './row.html',
   styleUrl: './row.css'
 })
-export class Row {
+export class Row implements OnChanges {
   @Input() public active = false;
   @Input() public word = '';
+  @Input() public shouldTypeAnimate = true;
+  @Input() public shouldInvalidAnimate = false;
+  public winEvent = output<void>();
+  protected winIndex = signal(-1);
 
   protected absurdle = inject(AbsurdleService);
 
@@ -42,8 +46,15 @@ export class Row {
       const answerOccurrences = this.absurdle.answer().split("").filter(l => l == letter).length;
       let prevGuessOccurrences = 0;
 
-      for (let i = 0; i < index; i++) {
-        if (this.getLetters()[i][0] == letter)
+      for (let i = 0; i < 6; i++) {
+        if (this.word.length <= i || i == index)
+          continue;
+        if (this.getLetters()[i][0] != letter)
+          continue;
+
+        if (this.absurdle.answer()[i] == letter)
+          prevGuessOccurrences++;
+        else if (i < index)
           prevGuessOccurrences++;
       }
 
@@ -55,5 +66,36 @@ export class Row {
 
     // Incorrect letter
     return LetterState.INCORRECT;
+  }
+
+  protected isWin() {
+    for (let i = 0; i < 6; i++)
+      if (this.getLetterState(i) != LetterState.CORRECT)
+        return false;
+
+    return true;
+  }
+
+  protected shouldAnimateLetter(index: number): boolean {
+    if (this.winIndex() == index)
+      return true;
+    return this.shouldTypeAnimate && this.active && index == this.word.length - 1;
+  }
+
+  ngOnChanges() {
+    let interval: number;
+    let index = -1;
+    if (this.isWin())
+      interval = setInterval(() => {
+        index++;
+        if (index >= 6) {
+          clearInterval(interval);
+          this.winEvent.emit();
+          return;
+        }
+
+        this.winIndex.set(index);
+        console.log("Updated to", index);
+      }, 350);
   }
 }

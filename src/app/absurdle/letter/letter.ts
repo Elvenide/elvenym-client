@@ -17,4 +17,6 @@ export const LetterState = {
 export class Letter {
   @Input() public letter = '';
   @Input() public state = LetterState.DISABLED;
+  @Input() public typeAnimation = false;
+  @Input() public invalidAnimation = false;
 }

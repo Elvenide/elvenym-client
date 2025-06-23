@@ -1,3 +1,5 @@
-@for (entry of getLetters(); track $index) {
-    <absurdle-letter [letter]="entry[0]" [state]="getLetterState(entry[1])" />
+@if (winIndex() != 7) {
+    @for (entry of getLetters(); track $index) {
+        <absurdle-letter [letter]="entry[0]" [state]="getLetterState(entry[1])" [typeAnimation]="shouldAnimateLetter(entry[1])" [invalidAnimation]="shouldInvalidAnimate" />
+    }
 }
