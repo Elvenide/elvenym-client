@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +8,7 @@ export class AbsurdleService {
 
   private _answer: string = "";
   private _guesses: Set<string> = new Set();
+  public keyPressEvent = new Subject<string>();
 
   constructor() { }
 
@@ -35,5 +36,10 @@ export class AbsurdleService {
           observer.next(true)
         });
     });
+  }
+
+  public static generateGuessArray(MAX_GUESSES: number): [string, number][] {
+    const guesses = new Array(MAX_GUESSES).fill("");
+    return guesses.map((v, i) => [v, i]);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Key } from './key';
 
 @Component({
@@ -15,6 +15,4 @@ export class Keyboard {
   @Input() public correctKeys: Set<string> = new Set();
   @Input() public incorrectKeys: Set<string> = new Set();
   @Input() public misplacedKeys: Set<string> = new Set();
-
-  public keyPressEvent = output<string>();
 }

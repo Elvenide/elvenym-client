@@ -3,6 +3,8 @@ import { Row } from './row/row';
 import { Keyboard } from './keyboard/keyboard';
 import { AbsurdleService } from './service';
 
+const MAX_GUESSES = 7;
+
 @Component({
   selector: 'game-absurdle',
   imports: [Row, Keyboard],
@@ -11,7 +13,7 @@ import { AbsurdleService } from './service';
 })
 export class Absurdle implements OnInit {
   public loaded = signal(false);
-  protected guesses: WritableSignal<[string, number][]> = signal([["", 0], ["", 1], ["", 2], ["", 3], ["", 4]]);
+  protected guesses: WritableSignal<[string, number][]> = signal(AbsurdleService.generateGuessArray(MAX_GUESSES));
   protected activeRow = 0;
   protected isTyping = false;
   protected isInvalid = signal(false);
@@ -25,12 +27,16 @@ export class Absurdle implements OnInit {
         console.log("Fetched daily Absurdle data.");
       });
 
+    this.absurdle.keyPressEvent.subscribe(key => {
+      this.onKeyPress(key);
+    });
+
     document.addEventListener("keyup", e => {
       const key = e.key.toLowerCase();
       if (key == "enter" || key == "backspace")
         e.preventDefault();
 
-      this.onKeyPress(key);
+      this.absurdle.keyPressEvent.next(key);
     });
   }
 
@@ -53,9 +59,9 @@ export class Absurdle implements OnInit {
       
       this.activeRow++;
       this.guesses.set(guesses);
-      if (this.activeRow >= 5 || isWin) {
+      if (this.activeRow >= MAX_GUESSES || isWin) {
         this.gameFinished = true;
-        this.activeRow = 5;
+        this.activeRow = MAX_GUESSES;
       }
     }
 

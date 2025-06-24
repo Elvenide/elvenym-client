@@ -1,5 +1,6 @@
-import { Component, Input, output } from '@angular/core';
+import { Component, Input, inject, OnInit, signal } from '@angular/core';
 import { LetterState } from '../letter/letter';
+import { AbsurdleService } from '../service';
 
 @Component({
   selector: 'absurdle-key',
@@ -7,13 +8,14 @@ import { LetterState } from '../letter/letter';
   templateUrl: './key.html',
   styleUrl: './key.css'
 })
-export class Key {
+export class Key implements OnInit {
   @Input() public letter = '';
   @Input() public isCorrect = false;
   @Input() public isIncorrect = false;
   @Input() public isMisplaced = false;
 
-  public keyPressEvent = output<string>();
+  protected animateClass = signal("");
+  protected absurdle = inject(AbsurdleService);
   
   protected get state() {
     if (this.isCorrect)
@@ -28,12 +30,25 @@ export class Key {
     return LetterState.GUESSING;
   }
 
-  protected onClick(event: MouseEvent) {
-    this.keyPressEvent.emit(this.letter);
-    setTimeout(() => {
-      (event.target as HTMLDivElement).blur();
-    }, 250);
+  protected onClick() {
+    let letter = this.letter;
+    if (this.letter == "⌫") letter = "backspace";
+    else if (this.letter == "⏎") letter = "enter"; 
+
+    this.absurdle.keyPressEvent.next(letter);
   }
 
-  // TODO animate keys when typed on laptop keyboard
+  ngOnInit(): void {
+      this.absurdle.keyPressEvent.subscribe(key => {
+        if (this.letter == "⌫" && key == "backspace") {}
+        else if (this.letter == "⏎" && key == "enter") {}
+        else if (key != this.letter)
+          return;
+
+        this.animateClass.set(" type_animation");
+        setTimeout(() => {
+          this.animateClass.set("");
+        }, 250);
+      });
+  }
 }
