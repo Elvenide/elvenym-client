@@ -46,8 +46,10 @@ export class Absurdle implements OnInit {
         
         this.activeRow++;
         this.guesses.set(guesses);
-        if (this.activeRow >= 5 || isWin)
+        if (this.activeRow >= 5 || isWin) {
           this.gameFinished = true;
+          this.activeRow = 5;
+        }
       }
 
       else if (key == "backspace") {
