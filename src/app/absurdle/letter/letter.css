@@ -79,12 +79,12 @@
 }
 
 .box.state-invalid_pos {
-    background-color: rgb(187, 97, 0);
+    background-color: #d95200;
     border-color: transparent;
 }
 
 .box.state-correct {
-    background-color: rgb(42, 163, 42);
+    background-color: #16a216;
     border-color: transparent;
 }
 
