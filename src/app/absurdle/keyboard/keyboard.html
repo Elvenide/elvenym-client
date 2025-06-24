@@ -1,0 +1,17 @@
+<div class="row">
+    @for (key of topRowKeys; track $index) {
+    <absurdle-key [letter]="key" [isCorrect]="correctKeys.has(key)" [isIncorrect]="incorrectKeys.has(key)" [isMisplaced]="misplacedKeys.has(key)" (keyPressEvent)="keyPressEvent.emit($event)"></absurdle-key>
+    }
+</div>
+<div class="row">
+    @for (key of midRowKeys; track $index) {
+    <absurdle-key [letter]="key" [isCorrect]="correctKeys.has(key)" [isIncorrect]="incorrectKeys.has(key)" [isMisplaced]="misplacedKeys.has(key)" (keyPressEvent)="keyPressEvent.emit($event)"></absurdle-key>
+    }
+</div>
+<div class="row">
+    <absurdle-key letter="⏎" class="large" (keyPressEvent)="keyPressEvent.emit('enter')"></absurdle-key>
+    @for (key of lowRowKeys; track $index) {
+    <absurdle-key [letter]="key" [isCorrect]="correctKeys.has(key)" [isIncorrect]="incorrectKeys.has(key)" [isMisplaced]="misplacedKeys.has(key)" (keyPressEvent)="keyPressEvent.emit($event)"></absurdle-key>
+    }
+    <absurdle-key letter="⌫" class="large" (keyPressEvent)="keyPressEvent.emit('backspace')"></absurdle-key>
+</div>

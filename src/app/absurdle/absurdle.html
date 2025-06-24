@@ -7,4 +7,6 @@
     @else {
         Loading...
     }
+    <br />
+    <absurdle-keyboard [correctKeys]="getCorrectKeys()" [incorrectKeys]="getIncorrectKeys()" [misplacedKeys]="getMisplacedKeys()" (keyPressEvent)="onKeyPress($event)"></absurdle-keyboard>
 </main>
