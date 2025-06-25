@@ -1,11 +1,10 @@
 :host {
     background: var(--background);
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
+    flex-grow: 1;
     overflow-y: auto;
+    overflow-x: hidden;
     color: var(--color);
     display: flex;
     flex-direction: column;
