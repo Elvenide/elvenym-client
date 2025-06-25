@@ -3,7 +3,7 @@ import { Row } from './row/row';
 import { Keyboard } from './keyboard/keyboard';
 import { AbsurdleService } from './service';
 
-const MAX_GUESSES = 7;
+const MAX_GUESSES = 5;
 
 @Component({
   selector: 'game-absurdle',
