@@ -9,5 +9,16 @@
 
 .main {
     flex-grow: 1;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    container-type: size;
+}
+
+.separator {
+    flex-grow: 1;
+    max-height: 40px;
 }

@@ -1,3 +1,6 @@
+<nav style="height: 60px; width: 100%; background-color: darkblue;">
+    Temporary Template
+</nav>
 <main class="main">
     @if (loaded()) {
         @for (guess of guesses(); track $index) {
@@ -7,6 +10,9 @@
     @else {
         Loading...
     }
-    <br />
+    <div class="separator"></div>
     <absurdle-keyboard [correctKeys]="getCorrectKeys()" [incorrectKeys]="getIncorrectKeys()" [misplacedKeys]="getMisplacedKeys()"></absurdle-keyboard>
 </main>
+<footer style="background-color: darkred; width: 100%;">
+    &copy; Elvenide (Temporary Template)
+</footer>
