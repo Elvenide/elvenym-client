@@ -2,6 +2,8 @@
 
 :root {
     --theme-darkest: #0c0b10;
+    --theme-darker: #0e0d13;
+    --theme-dark: #121118;
     --theme: #ab73ff;
 
     --background: var(--theme-darkest);
@@ -37,4 +39,34 @@ body {
     padding-right: var(--inset-right);
     padding-top: var(--inset-top);
     padding-bottom: var(--inset-bottom);
+}
+
+main[game] {
+    flex-grow: 1;
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    container-type: size;
+}
+
+nav[game] {
+    height: 60px;
+    width: 100%;
+    background: var(--background);
+    border-bottom: 2px solid var(--theme-dark);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px 15px;
+    gap: 8px;
+}
+
+footer[game] {
+    background-color: var(--theme-darker);
+    width: 100%;
+    padding: 8px 0px;
+    text-align: center;
 }

@@ -1,7 +1,13 @@
-<nav style="height: 60px; width: 100%; background-color: darkblue;">
-    Temporary Template
+<nav game>
+    <a>
+        <!-- TODO: <i>Back</i> -->
+        <span style="font-weight: bold;">Elvenym</span>
+    </a>
+    <div class="separator"></div>
+    <!-- TODO: <i>Help</i> -->
+    <!-- TODO: <i>Leaderboards</i> -->
 </nav>
-<main class="main">
+<main game>
     @if (loaded()) {
         @for (guess of guesses(); track $index) {
         <absurdle-row [active]="guess[1] == activeRow" [word]="guess[0]" [shouldTypeAnimate]="isTyping" [shouldInvalidAnimate]="guess[1] == activeRow && isInvalid()" (winEvent)="onWin()"></absurdle-row>
@@ -13,6 +19,6 @@
     <div class="separator"></div>
     <absurdle-keyboard [correctKeys]="getCorrectKeys()" [incorrectKeys]="getIncorrectKeys()" [misplacedKeys]="getMisplacedKeys()"></absurdle-keyboard>
 </main>
-<footer style="background-color: darkred; width: 100%;">
-    &copy; Elvenide (Temporary Template)
+<footer game>
+    Created by <a style="color: var(--theme);">Elvenide</a>
 </footer>
