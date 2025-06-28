@@ -67,6 +67,7 @@ nav[game] {
 footer[game] {
     background-color: var(--theme-darker);
     width: 100%;
-    padding: 8px 0px;
+    padding: 3px 0px;
     text-align: center;
+    font-size: 9pt;
 }
