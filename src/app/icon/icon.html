@@ -1,0 +1,12 @@
+@if (small) {
+    <ng-icon [name]="name" size="1em"></ng-icon>
+}
+@else if (medium) {
+    <ng-icon [name]="name" size="1.5em"></ng-icon>
+}
+@else if (large) {
+    <ng-icon [name]="name" size="1.75em"></ng-icon>
+}
+@else {
+    <ng-icon [name]="name"></ng-icon>
+}

@@ -2,12 +2,13 @@ import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core
 import { Row } from './row/row';
 import { Keyboard } from './keyboard/keyboard';
 import { AbsurdleService } from './service';
+import { Icon } from '../icon/icon';
 
 const MAX_GUESSES = 5;
 
 @Component({
   selector: 'game-absurdle',
-  imports: [Row, Keyboard],
+  imports: [Row, Keyboard, Icon],
   templateUrl: './absurdle.html',
   styleUrl: './absurdle.css'
 })

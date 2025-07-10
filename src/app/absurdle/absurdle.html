@@ -1,11 +1,26 @@
 <nav game>
-    <a>
-        <!-- TODO: <i>Back</i> -->
-        <span style="font-weight: bold;">Elvenym</span>
-    </a>
+    <button>
+        <a href="/">
+            <icon name="home" medium />
+        </a>
+    </button>
+    <div class="logo">
+        <div>A</div>
+        <div>B</div>
+        <div>S</div>
+        <div>U</div>
+        <div>R</div>
+        <div>D</div>
+        <div>L</div>
+        <div>E</div>
+    </div>
     <div class="separator"></div>
-    <!-- TODO: <i>Help</i> -->
-    <!-- TODO: <i>Leaderboards</i> -->
+    <button>
+        <icon name="outline:info" medium />
+    </button>
+    <button>
+        <icon name="outline:leaderboard" medium />
+    </button>
 </nav>
 <main game>
     @if (loaded()) {
@@ -20,5 +35,5 @@
     <absurdle-keyboard [correctKeys]="getCorrectKeys()" [incorrectKeys]="getIncorrectKeys()" [misplacedKeys]="getMisplacedKeys()"></absurdle-keyboard>
 </main>
 <footer game>
-    Created by <a style="color: var(--theme);">Elvenide</a>
+    Created by <a href="#">Elvenide</a>
 </footer>
