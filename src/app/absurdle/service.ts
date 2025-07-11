@@ -38,8 +38,42 @@ export class AbsurdleService {
     });
   }
 
+  private static resetCacheIfNecessary() {
+    const day = localStorage.getItem("absurdle_day");
+    if (!day)
+      return;
+
+    const lastDate = new Date(day);
+    const currentDate = new Date();
+    if (lastDate.getDate() == currentDate.getDate()
+      && lastDate.getMonth() == currentDate.getMonth()
+      && lastDate.getFullYear() == currentDate.getFullYear())
+      return;
+
+    localStorage.removeItem("absurdle_guesses");
+    localStorage.removeItem("absurdle_row");
+    localStorage.removeItem("absurdle_day");
+  }
+
   public static generateGuessArray(MAX_GUESSES: number): [string, number][] {
+    AbsurdleService.resetCacheIfNecessary();
+
+    const cachedGuesses = localStorage.getItem("absurdle_guesses");
+    if (cachedGuesses)
+      return JSON.parse(cachedGuesses);
+    
     const guesses = new Array(MAX_GUESSES).fill("");
     return guesses.map((v, i) => [v, i]);
+  }
+
+  public getActiveRow() {
+    let activeRow = localStorage.getItem("absurdle_row") ?? "0";
+    return Number(activeRow);
+  }
+
+  public saveGuesses(guesses: [string, number][], activeRow: number) {
+    localStorage.setItem("absurdle_guesses", JSON.stringify(guesses));
+    localStorage.setItem("absurdle_row", "" + activeRow);
+    localStorage.setItem("absurdle_day", new Date().toISOString());
   }
 }

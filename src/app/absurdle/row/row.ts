@@ -95,7 +95,6 @@ export class Row implements OnChanges {
         }
 
         this.winIndex.set(index);
-        console.log("Updated to", index);
       }, 350);
   }
 }

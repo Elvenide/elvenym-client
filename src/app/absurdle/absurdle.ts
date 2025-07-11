@@ -22,6 +22,12 @@ export class Absurdle implements OnInit {
   protected absurdle = inject(AbsurdleService);
 
   ngOnInit() {
+    this.activeRow = this.absurdle.getActiveRow();
+    if (this.activeRow >= MAX_GUESSES) {
+      this.gameFinished = true;
+      this.activeRow = MAX_GUESSES;
+    }
+
     this.absurdle.fetchDailyAnswer()
       .subscribe(_ => {
         this.loaded.set(true);
@@ -79,6 +85,8 @@ export class Absurdle implements OnInit {
       guesses[this.activeRow][0] += key;
       this.guesses.set(guesses);
     }
+
+    this.absurdle.saveGuesses(guesses, this.activeRow);
   }
 
   protected onWin() {
