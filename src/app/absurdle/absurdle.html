@@ -15,7 +15,7 @@
         <div>E</div>
     </div>
     <div class="separator"></div>
-    <button>
+    <button (click)="showInfoModal.set(true)">
         <icon name="outline:info" medium />
     </button>
     <button>
@@ -37,3 +37,105 @@
 <footer game>
     Created by <a href="#">Elvenide</a>
 </footer>
+
+<!-- Win Modal -->
+<modal [open]="showWinModal()">
+    <span modal-header>
+        <icon name="emoji_events" />
+        Victory!
+    </span>
+    <span class="letter-subtitle">Found Answer:</span>
+    <b>
+    @for (letter of absurdle.answer(); track $index) {
+        <span class="letter correct">{{letter.toUpperCase()}}</span>
+    }
+    </b><br /><br />
+    Guesses: <b>{{getWinRow()}}/5</b><br/>
+    Win Rate: <b>{{absurdle.getWins() / (absurdle.getWins() + absurdle.getLosses()) * 100}}%</b>
+    <b style="color: #00cc00;">&nbsp;&plus;</b>
+</modal>
+
+<!-- Loss Modal -->
+<modal [open]="showLossModal()">
+    <span modal-header>
+        <icon name="flag" />
+        Defeat
+    </span>
+    <span class="letter-subtitle">Missed Answer:</span>
+    <b>
+    @for (letter of absurdle.answer(); track $index) {
+        @if (getCorrectKeys().has(letter)) {
+        <span class="letter correct">{{letter.toUpperCase()}}</span>
+        }
+        @else if (getMisplacedKeys().has(letter)) {
+        <span class="letter misplaced">{{letter.toUpperCase()}}</span>
+        }
+        @else if (getIncorrectKeys().has(letter)) {
+        <span class="letter incorrect">{{letter.toUpperCase()}}</span>
+        }
+        @else {
+        <span class="letter unguessed">{{letter.toUpperCase()}}</span>
+        }
+    }
+    </b><br /><br />
+    Guesses: <b>5/5</b><br/>
+    Win Rate: <b>{{absurdle.getWins() / (absurdle.getWins() + absurdle.getLosses()) * 100}}%</b>
+    <b style="color: #cc0000;">&nbsp;&ndash;</b>
+</modal>
+
+<!-- Info Modal -->
+<modal [open]="showInfoModal()" (closeEvent)="showInfoModal.set(false);">
+    <span modal-header>How to Absurdle</span>
+    Every day, a random 6-letter word is selected.
+    You have 5 guesses to figure out the word,
+    each of which must be a real word.
+    Each guess shows correct, misplaced, and incorrect letters.
+    <br/><br/>
+    <span class="letter-subtitle">
+        Letters not in the word are gray:
+    </span>
+    <b>
+        <span class="letter incorrect">C</span>
+        <span class="letter incorrect">H</span>
+        <span class="letter incorrect">E</span>
+        <span class="letter incorrect">E</span>
+        <span class="letter incorrect">K</span>
+        <span class="letter incorrect">Y</span>
+    </b>
+    <br/><br/>
+    <span class="letter-subtitle">
+        Letters in the word, but wrong position, are orange:
+    </span>
+    <b>
+        <span class="letter misplaced">B</span>
+        <span class="letter misplaced">R</span>
+        <span class="letter incorrect">E</span>
+        <span class="letter misplaced">A</span>
+        <span class="letter incorrect">K</span>
+        <span class="letter misplaced">S</span>
+    </b>
+    <br/><br/>
+    <span class="letter-subtitle">
+        Letters in the correct position are green:
+    </span>
+    <b>
+        <span class="letter correct">A</span>
+        <span class="letter incorrect">T</span>
+        <span class="letter incorrect">T</span>
+        <span class="letter correct">U</span>
+        <span class="letter incorrect">N</span>
+        <span class="letter incorrect">E</span>
+    </b>
+    <br/><br/>
+    <span class="letter-subtitle">
+        Get all letters green to win:
+    </span>
+    <b>
+        <span class="letter correct">A</span>
+        <span class="letter correct">B</span>
+        <span class="letter correct">S</span>
+        <span class="letter correct">U</span>
+        <span class="letter correct">R</span>
+        <span class="letter correct">D</span>
+    </b>
+</modal>

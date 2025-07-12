@@ -3,12 +3,13 @@ import { Row } from './row/row';
 import { Keyboard } from './keyboard/keyboard';
 import { AbsurdleService } from './service';
 import { Icon } from '../icon/icon';
+import { Modal } from "../modal/modal";
 
 const MAX_GUESSES = 5;
 
 @Component({
   selector: 'game-absurdle',
-  imports: [Row, Keyboard, Icon],
+  imports: [Row, Keyboard, Icon, Modal],
   templateUrl: './absurdle.html',
   styleUrl: './absurdle.css'
 })
@@ -19,6 +20,9 @@ export class Absurdle implements OnInit {
   protected isTyping = false;
   protected isInvalid = signal(false);
   private gameFinished = false;
+  protected showWinModal = signal(false);
+  protected showLossModal = signal(false);
+  protected showInfoModal = signal(false);
   protected absurdle = inject(AbsurdleService);
 
   ngOnInit() {
@@ -28,10 +32,20 @@ export class Absurdle implements OnInit {
       this.activeRow = MAX_GUESSES;
     }
 
+    this.showInfoModal.set(!this.absurdle.hasPlayedBefore());
+
     this.absurdle.fetchDailyAnswer()
       .subscribe(_ => {
         this.loaded.set(true);
         console.log("Fetched daily Absurdle data.");
+
+        if (this.activeRow >= MAX_GUESSES) {
+          const maxGuess = this.guesses().at(-1)?.[0]!;
+          if (maxGuess.length == 6 && maxGuess != this.absurdle.answer())
+            setTimeout(() => {
+              this.showLossModal.set(true);
+            }, 1000);
+        }
       });
 
     this.absurdle.keyPressEvent.subscribe(key => {
@@ -69,6 +83,15 @@ export class Absurdle implements OnInit {
       if (this.activeRow >= MAX_GUESSES || isWin) {
         this.gameFinished = true;
         this.activeRow = MAX_GUESSES;
+
+        if (isWin)
+          this.absurdle.saveWin();
+        else {
+          this.absurdle.saveLoss();
+          setTimeout(() => {
+            this.showLossModal.set(true);
+          }, 1000);
+        }
       }
     }
 
@@ -90,7 +113,7 @@ export class Absurdle implements OnInit {
   }
 
   protected onWin() {
-    alert("YOU HAVE WON!\nInsert Modal here!")
+    this.showWinModal.set(true);
   }
 
   protected getCorrectKeys() {
@@ -142,5 +165,9 @@ export class Absurdle implements OnInit {
     }
 
     return keys;
+  }
+
+  protected getWinRow() {
+    return this.guesses().findIndex(([guess, _i]) => guess == this.absurdle.answer()) + 1;
   }
 }

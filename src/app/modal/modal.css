@@ -1,0 +1,116 @@
+:host {
+    z-index: 1000;
+    pointer-events: none;
+    display: block;
+}
+
+:host:empty {
+    display: none;
+}
+
+/* .screen serves as the darkened background screen */
+.screen {
+    z-index: 1000;
+    pointer-events: all;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(3px);
+}
+
+/* .box serves as the dialog box */
+.box {
+    z-index: 1001;
+    pointer-events: all;
+    background-color: var(--theme-darker);
+    width: 100%;
+    height: auto;
+    max-width: 520px;
+    max-height: calc(100% - 20px);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 60%;
+    left: 50%;
+    opacity: 1;
+    transform: translate(-50%, -50%);
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-radius: 15px;
+    animation: forwards box-in 0.6s;
+    box-shadow: #000 0px 5px 8px -5px;
+}
+
+.box.unslide {
+    animation: forwards box-out 0.6s;
+}
+
+.text, .header {
+    width: fit-content;
+    margin-inline: 40px;
+}
+
+.header {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+}
+
+.text {
+    font-size: 1em;
+    margin-bottom: 40px;
+}
+
+.close {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: start;
+    padding-right: 15px;
+    padding-top: 15px;
+    color: #777777;
+}
+
+.close > icon {
+    cursor: pointer;
+    padding: 5px;
+    transition: 0.2s all ease-in-out;
+}
+
+.close > icon:hover {
+    color: #999999;
+}
+
+.close > icon:focus {
+    color: var(--theme);
+    filter: drop-shadow(var(--theme) 0px 0px 6px);
+    outline: none;
+}
+
+@keyframes box-in {
+    0% {
+        top: 80%;
+        opacity: 0;
+    }
+
+    100% {
+        top: 50%;
+        opacity: 1;
+    }
+}
+
+@keyframes box-out {
+    0% {
+        top: 50%;
+        opacity: 1;
+    }
+
+    100% {
+        top: 80%;
+        opacity: 0;
+    }
+}

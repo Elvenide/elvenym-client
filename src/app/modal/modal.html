@@ -1,0 +1,14 @@
+@if (open) {
+    <div class="screen" (click)="close()"></div>
+    <div class="box{{startClosing() ? ' unslide' : ''}}">
+        <div class="close">
+            <icon name="close" medium tabindex="-1" (click)="close()" />
+        </div>
+        <h1 class="header">
+            <ng-content select="[modal-header]"></ng-content>
+        </h1>
+        <div class="text">
+            <ng-content></ng-content>
+        </div>
+    </div>
+}

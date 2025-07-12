@@ -75,5 +75,30 @@ export class AbsurdleService {
     localStorage.setItem("absurdle_guesses", JSON.stringify(guesses));
     localStorage.setItem("absurdle_row", "" + activeRow);
     localStorage.setItem("absurdle_day", new Date().toISOString());
+    localStorage.setItem("absurdle_has_played", "true");
+  }
+
+  public saveWin() {
+    const wins = this.getWins() + 1;
+    localStorage.setItem("absurdle_wins", "" + wins);
+  }
+
+  public saveLoss() {
+    const losses = this.getLosses() + 1;
+    localStorage.setItem("absurdle_losses", "" + losses);
+  }
+
+  public getWins() {
+    const wins = localStorage.getItem("absurdle_wins") ?? "0";
+    return Number(wins);
+  }
+
+  public getLosses() {
+    const losses = localStorage.getItem("absurdle_losses") ?? "0";
+    return Number(losses);
+  }
+
+  public hasPlayedBefore() {
+    return localStorage.getItem("absurdle_has_played") == "true";
   }
 }
