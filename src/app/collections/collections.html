@@ -40,7 +40,7 @@
     </div>
     <div class="separator"></div>
     <div class="row">
-        <button [disabled]="!loaded()">
+        <button [disabled]="!loaded()" (click)="shuffle()">
             Shuffle
         </button>
         <button [disabled]="!loaded() || gridSelected().length == 0" (click)="clearSelection()">

@@ -3,6 +3,7 @@ import { Icon } from '../icon/icon';
 import { Modal } from '../modal/modal';
 import { CollectionsService } from './service';
 import { Member, MemberSelectEvent } from './member/member';
+import { resetSeed, shuffle } from '../../utils/random';
 
 const MAX_GROUPS = 5;
 
@@ -38,6 +39,9 @@ export class Collections implements OnInit {
       }, 1000);
     }
 
+    // Reset RNG seed
+    resetSeed();
+
     // TODO re-enable when not annoying
     // this.showInfoModal.set(!this.collections.hasPlayedBefore());
 
@@ -47,7 +51,8 @@ export class Collections implements OnInit {
         for (const group of this.collections.answer()) {
           members.push(...group.members);
         }
-        this.shuffle(members);
+        // this.shuffle(members); TODO
+        this.grid.set(members);
 
         this.loaded.set(true);
         console.log("Fetched daily Collections data.");
@@ -77,6 +82,7 @@ export class Collections implements OnInit {
       return;
 
     members = members ?? this.grid();
+    shuffle(members);
     this.grid.set(members);
   }
 
@@ -102,6 +108,9 @@ export class Collections implements OnInit {
   }
 
   clearSelection() {
+    if (this.gameFinished)
+      return;
+
     this.collections.clearSelectionEvent.next();
     this.gridSelected.set([]);
   }
