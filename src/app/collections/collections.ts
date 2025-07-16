@@ -75,7 +75,7 @@ export class Collections implements OnInit {
   shuffle(members?: string[]) {
     if (this.gameFinished)
       return;
-    
+
     members = members ?? this.grid();
     this.grid.set(members);
   }
@@ -99,5 +99,10 @@ export class Collections implements OnInit {
     }
 
     this.gridSelected.set(selected);
+  }
+
+  clearSelection() {
+    this.collections.clearSelectionEvent.next();
+    this.gridSelected.set([]);
   }
 }

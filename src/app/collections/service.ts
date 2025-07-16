@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 export interface CollectionsGroup {
     difficulty: number;
@@ -13,6 +13,7 @@ export interface CollectionsGroup {
 export class CollectionsService {
 
   private _answer: CollectionsGroup[] = [];
+  public readonly clearSelectionEvent = new Subject<void>();
 
   constructor() { }
 

@@ -1,4 +1,5 @@
-import { Component, HostListener, Input, output } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, Input, OnInit, output } from '@angular/core';
+import { CollectionsService } from '../service';
 
 export interface MemberSelectEvent {
   text: string;
@@ -11,9 +12,18 @@ export interface MemberSelectEvent {
   templateUrl: './member.html',
   styleUrl: './member.css'
 })
-export class Member {
+export class Member implements OnInit {
   @Input({ required: true }) public word!: string;
   public selectEvent = output<MemberSelectEvent>();
+
+  private element = inject(ElementRef);
+  private collections = inject(CollectionsService);
+
+  ngOnInit(): void {
+    this.collections.clearSelectionEvent.subscribe(() => {
+      this.element.nativeElement.classList.remove("selected");
+    });
+  }
 
   @HostListener("click", ["$event.target"])
   onSelect(elem: EventTarget|null) {

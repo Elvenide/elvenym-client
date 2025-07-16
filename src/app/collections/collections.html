@@ -43,7 +43,7 @@
         <button [disabled]="!loaded()">
             Shuffle
         </button>
-        <button [disabled]="!loaded() || gridSelected().length == 0">
+        <button [disabled]="!loaded() || gridSelected().length == 0" (click)="clearSelection()">
             Clear
         </button>
         <button [disabled]="!loaded() || gridSelected().length < 4">
