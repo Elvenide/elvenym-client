@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Icon } from '../icon/icon';
 import { Modal } from '../modal/modal';
-import { CollectionsGroup, CollectionsService } from './service';
+import { CollectionsService } from './service';
 import { Member, MemberSelectEvent } from './member/member';
 
 const MAX_GROUPS = 5;
@@ -73,11 +73,17 @@ export class Collections implements OnInit {
   }
 
   shuffle(members?: string[]) {
+    if (this.gameFinished)
+      return;
+    
     members = members ?? this.grid();
     this.grid.set(members);
   }
 
   selectMember(event: MemberSelectEvent) {
+    if (this.gameFinished)
+      return;
+
     const selected = this.gridSelected();
     const selectedIndex = selected.findIndex(s => s == event.text);
 

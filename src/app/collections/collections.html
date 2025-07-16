@@ -31,7 +31,26 @@
         }
     </div>
     <div class="separator"></div>
-
+    <div class="row">
+        <span class="lives-hearts">
+            @for (_ of [].constructor(lives()); track $index) {
+                <icon name="favorite" />
+            }
+        </span>
+    </div>
+    <div class="separator"></div>
+    <div class="row">
+        <button [disabled]="!loaded()">
+            Shuffle
+        </button>
+        <button [disabled]="!loaded() || gridSelected().length == 0">
+            Clear
+        </button>
+        <button [disabled]="!loaded() || gridSelected().length < 4">
+            Submit
+        </button>
+    </div>
+    <div class="separator-thin"></div>
 </main>
 <footer game>
     Created by <a href="#">Elvenide</a>

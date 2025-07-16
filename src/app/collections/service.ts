@@ -30,7 +30,6 @@ export class CollectionsService {
         .then(b => b.json())
         .then(data => {
           this._answer = data.groups;
-          this._answer[3].members[0] = "CONDITIONALITY PLUS";
           setTimeout(() => {
             observer.next(true);
           }, 1500);
@@ -70,10 +69,11 @@ export class CollectionsService {
     return Number(lives);
   }
 
-  public saveGroups(groups: CollectionsGroup[]) {
+  public saveGroups(groups: CollectionsGroup[], lives: number) {
     localStorage.setItem("collections_groups", JSON.stringify(groups));
     localStorage.setItem("collections_day", new Date().toISOString());
     localStorage.setItem("collections_has_played", "true");
+    localStorage.setItem("collections_lives", "" + lives);
   }
 
   public saveWin() {
