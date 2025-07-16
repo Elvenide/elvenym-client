@@ -1,0 +1,10 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    width: 100%;
+    max-width: 800px;
+    flex-grow: 1;
+    max-height: 700px;
+    container-type: size;
+}

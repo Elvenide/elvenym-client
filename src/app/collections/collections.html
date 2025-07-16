@@ -1,0 +1,68 @@
+<nav game>
+    <button>
+        <a href="/">
+            <icon name="home" medium />
+        </a>
+    </button>
+    <div class="logo">
+        COLLECTIONS
+    </div>
+    <div class="separator"></div>
+    <button (click)="showInfoModal.set(true)">
+        <icon name="outline:info" medium />
+    </button>
+    <button>
+        <icon name="outline:leaderboard" medium />
+    </button>
+</nav>
+<main game>
+    <div class="grid" [style]="`grid-template-rows: repeat(${LOADER.length / 4}, 1fr);`">
+        @if (loaded()) {
+            @for (members of enumerate(grid()); track $index) {
+            @for (member of members; track $index) {
+                <collections-member [word]="member" (selectEvent)="selectMember($event)" />
+            }
+            }
+        }
+        @else {
+            @for (i of LOADER; track $index) {
+                <collections-member word="" class="loading" />
+            }
+        }
+    </div>
+    <div class="separator"></div>
+
+</main>
+<footer game>
+    Created by <a href="#">Elvenide</a>
+</footer>
+
+<!-- Win Modal -->
+<modal [open]="showWinModal()">
+    <span modal-header>
+        <icon name="emoji_events" />
+        Victory!
+    </span>
+    Collections Found: 5/5<br />
+    Guesses: <b>?/5</b><br/>
+    Win Rate: <b>?%</b>
+    <b style="color: #00cc00;">&nbsp;&plus;</b>
+</modal>
+
+<!-- Loss Modal -->
+<modal [open]="showLossModal()">
+    <span modal-header>
+        <icon name="flag" />
+        Defeat
+    </span>
+    Collections Found: ?/5<br />
+    Guesses: <b>5/5</b><br/>
+    Win Rate: <b>?%</b>
+    <b style="color: #cc0000;">&nbsp;&ndash;</b>
+</modal>
+
+<!-- Info Modal -->
+<modal [open]="showInfoModal()" (closeEvent)="showInfoModal.set(false);">
+    <span modal-header>How to Collections</span>
+    Insert info
+</modal>

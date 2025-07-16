@@ -1,0 +1,39 @@
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    min-width: 0;
+    min-height: 0;
+    text-align: center;
+    font-size: min(2.5cqw, 5cqh);
+    cursor: pointer;
+
+    background-color: var(--theme-lighter);
+    font-weight: bold;
+    color: var(--theme-lightest);
+    transition: 0.2s all ease-in-out;
+}
+
+:host:not(.loading):not(.selected):hover {
+    background-color: #23222f;
+}
+
+:host.selected {
+    background-color: var(--theme-light);
+}
+
+:host.loading {
+    cursor: default;
+    animation: alternate infinite loading-skeleton linear 0.8s;
+}
+
+@keyframes loading-skeleton {
+    0% {
+        background-color: var(--theme-light);
+    }
+
+    100% {
+        background-color: var(--theme-dark);
+    }
+}

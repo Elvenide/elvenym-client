@@ -4,6 +4,9 @@
     --theme-darkest: #0c0b10;
     --theme-darker: #0e0d13;
     --theme-dark: #121118;
+    --theme-light: #181720;
+    --theme-lighter: #2e2d3e;
+    --theme-lightest: #9d98b9;
     --theme: #ab73ff;
 
     --background: var(--theme-darkest);
@@ -80,6 +83,26 @@ nav[game] > .separator {
     max-height: 1px;
 }
 
+nav[game] > .logo {
+    flex-direction: row;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    gap: 2px;
+}
+
+nav[game] > .logo > div {
+    border: 3px solid #303030;
+    height: 1.5em;
+    width: 1.5em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+}
+
 nav[game] a {
     color: inherit;
     text-decoration: none;
@@ -117,4 +140,13 @@ footer[game] a {
 
 footer[game] a:hover {
     filter: drop-shadow(var(--theme) 0px 0px 3.5px);
+}
+
+*:has(main[game]) {
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
