@@ -37,7 +37,13 @@ export class Collections implements OnInit {
       this.lives.set(0);
       setTimeout(() => {
         this.showLossModal.set(true);
-      }, 1000);
+      }, 2000);
+    }
+    else if (this.foundGroups().length == MAX_GROUPS) {
+      this.gameFinished = true;
+      setTimeout(() => {
+        this.showWinModal.set(true);
+      }, 2000);
     }
 
     // Reset RNG seed
@@ -50,7 +56,8 @@ export class Collections implements OnInit {
       .subscribe(_ => {
         const members = [];
         for (const group of this.collections.answer()) {
-          members.push(...group.members);
+          if (!this.foundGroups().some(g => g.group == group.group))
+            members.push(...group.members);
         }
         // this.shuffle(members); TODO
         this.grid.set(members);
@@ -117,12 +124,15 @@ export class Collections implements OnInit {
   }
 
   submit() {
+    if (this.gameFinished)
+      return;
+
     const members = this.gridSelected();
+    const groups = this.foundGroups();
     for (const group of this.collections.answer()) {
       if (group.members.every(member => members.includes(member))) {
         // Found this group
 
-        const groups = this.foundGroups();
         groups.push(group);
         this.foundGroups.set(groups);
 
@@ -132,9 +142,15 @@ export class Collections implements OnInit {
         });
 
         this.clearSelection();
+        this.collections.saveGroups(groups, this.lives());
 
-        // TODO save found groups
-        // TODO check win condition
+        if (groups.length == MAX_GROUPS) {
+          this.gameFinished = true;
+          this.collections.saveWin();
+          setTimeout(() => {
+            this.showWinModal.set(true);
+          }, 1000);
+        }
 
         return;
       }
@@ -143,13 +159,16 @@ export class Collections implements OnInit {
     // Did not find any groups
 
     const newLives = this.lives() - 1;
-    // TODO save found groups (to save lives)
-    if (newLives <= 0) {
-      // TODO: LOST
-      return;
-    }
-
+    this.collections.saveGroups(groups, Math.max(newLives, 0));
     this.lives.set(newLives);
     // TODO show incorrect animation
+
+    if (newLives <= 0) {
+      this.gameFinished = true;
+      this.collections.saveLoss();
+      setTimeout(() => {
+        this.showLossModal.set(true);
+      }, 1000);
+    }
   }
 }
