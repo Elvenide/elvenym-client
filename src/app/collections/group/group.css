@@ -9,6 +9,8 @@
     justify-content: center;
     position: relative;
     overflow: hidden;
+
+    animation: forwards slide-in cubic-bezier(0.215, 0.610, 0.355, 1) 0.5s;
 }
 
 /* TODO: change colors */
@@ -51,4 +53,14 @@ h2 {
 
 :host:hover > .difficulty {
     right: 8px;
+}
+
+@keyframes slide-in {
+    0% {
+        bottom: -50px;
+    }
+
+    100% {
+        bottom: 0px;
+    }
 }
