@@ -55,14 +55,14 @@ export class CollectionsService {
     localStorage.removeItem("collections_lives");
   }
 
-  public static generateGroupArray(MAX_GROUPS: number): CollectionsGroup[] {
+  public static generateGroupArray(): CollectionsGroup[] {
     CollectionsService.resetCacheIfNecessary();
 
     const cachedGroups = localStorage.getItem("collections_groups");
     if (cachedGroups)
       return JSON.parse(cachedGroups);
     
-    return new Array(MAX_GROUPS);
+    return [];
   }
 
   public getLives(MAX_GROUPS: number) {

@@ -18,6 +18,9 @@
 <main game>
     <div class="grid" [style]="`grid-template-rows: repeat(${LOADER.length / 4}, 1fr);`">
         @if (loaded()) {
+            @for (group of foundGroups(); track group.group) {
+                <collections-group [name]="group.group" [members]="group.members" [difficulty]="group.difficulty" />
+            }
             @for (members of enumerate(grid()); track $index) {
             @for (member of members; track $index) {
                 <collections-member [word]="member" (selectEvent)="selectMember($event)" />
@@ -46,7 +49,7 @@
         <button [disabled]="!loaded() || gridSelected().length == 0" (click)="clearSelection()">
             Clear
         </button>
-        <button [disabled]="!loaded() || gridSelected().length < 4">
+        <button [disabled]="!loaded() || gridSelected().length < 4" (click)="submit()">
             Submit
         </button>
     </div>

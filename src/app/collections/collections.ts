@@ -4,12 +4,13 @@ import { Modal } from '../modal/modal';
 import { CollectionsService } from './service';
 import { Member, MemberSelectEvent } from './member/member';
 import { resetSeed, shuffle } from '../../utils/random';
+import { Group } from "./group/group";
 
 const MAX_GROUPS = 5;
 
 @Component({
   selector: 'game-collections',
-  imports: [Icon, Modal, Member],
+  imports: [Icon, Modal, Member, Group],
   templateUrl: './collections.html',
   styleUrl: './collections.css'
 })
@@ -20,7 +21,7 @@ export class Collections implements OnInit {
   protected lives = signal(0);
   protected grid = signal([] as string[]);
   protected gridSelected = signal([] as string[]);
-  protected foundGroups = signal(CollectionsService.generateGroupArray(MAX_GROUPS));
+  protected foundGroups = signal(CollectionsService.generateGroupArray());
   private gameFinished = false;
 
   protected showWinModal = signal(false);
@@ -113,5 +114,42 @@ export class Collections implements OnInit {
 
     this.collections.clearSelectionEvent.next();
     this.gridSelected.set([]);
+  }
+
+  submit() {
+    const members = this.gridSelected();
+    for (const group of this.collections.answer()) {
+      if (group.members.every(member => members.includes(member))) {
+        // Found this group
+
+        const groups = this.foundGroups();
+        groups.push(group);
+        this.foundGroups.set(groups);
+
+        members.forEach(member => {
+          const i = this.grid().indexOf(member);
+          this.grid().splice(i, 1);
+        });
+
+        this.clearSelection();
+
+        // TODO save found groups
+        // TODO check win condition
+
+        return;
+      }
+    }
+
+    // Did not find any groups
+
+    const newLives = this.lives() - 1;
+    // TODO save found groups (to save lives)
+    if (newLives <= 0) {
+      // TODO: LOST
+      return;
+    }
+
+    this.lives.set(newLives);
+    // TODO show incorrect animation
   }
 }
