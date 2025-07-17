@@ -1,7 +1,7 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Icon } from '../icon/icon';
 import { Modal } from '../modal/modal';
-import { CollectionsService } from './service';
+import { CollectionsGroup, CollectionsService } from './service';
 import { Member } from './member/member';
 import { resetSeed, shuffle } from '../../utils/random';
 import { Group } from "./group/group";
@@ -185,5 +185,9 @@ export class Collections implements OnInit {
         this.showOneAwayToast.set(true);
       }
     }
+  }
+
+  getFoundGroupIndex(group: CollectionsGroup) {
+    return this.collections.answer().findIndex(g => g.group == group.group);
   }
 }
