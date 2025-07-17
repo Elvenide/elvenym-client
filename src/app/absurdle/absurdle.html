@@ -86,11 +86,12 @@
 <!-- Info Modal -->
 <modal [open]="showInfoModal()" (closeEvent)="showInfoModal.set(false);">
     <span modal-header>How to Absurdle</span>
-    Every day, a random 6-letter word is selected.
-    You have 5 guesses to figure out the word,
-    each of which must be a real word.
-    Each guess shows correct, misplaced, and incorrect letters.
-    <br/><br/>
+    <ul>
+        <li>Uncover the daily 6-letter word in 5 guesses</li>
+        <li>Each guess must be a real word</li>
+        <li>Each guess provides color-coded information</li>
+    </ul>
+    <br/>
     <span class="letter-subtitle">
         Letters not in the word are gray:
     </span>
