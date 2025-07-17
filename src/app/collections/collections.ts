@@ -5,12 +5,13 @@ import { CollectionsService } from './service';
 import { Member } from './member/member';
 import { resetSeed, shuffle } from '../../utils/random';
 import { Group } from "./group/group";
+import { Toast } from "../toast/toast";
 
 const MAX_GROUPS = 5;
 
 @Component({
   selector: 'game-collections',
-  imports: [Icon, Modal, Member, Group],
+  imports: [Icon, Modal, Member, Group, Toast],
   templateUrl: './collections.html',
   styleUrl: './collections.css'
 })
@@ -28,6 +29,7 @@ export class Collections implements OnInit {
   protected showWinModal = signal(false);
   protected showLossModal = signal(false);
   protected showInfoModal = signal(false);
+  protected showOneAwayToast = signal(false);
 
   protected collections = inject(CollectionsService);
 
@@ -96,6 +98,9 @@ export class Collections implements OnInit {
   selectMember(word: string) {
     if (this.gameFinished)
       return;
+
+    // Remove one away toast when next selecting member
+    this.showOneAwayToast.set(false);
 
     const selected = this.gridSelected();
     const selectedIndex = selected.findIndex(s => s == word);
@@ -176,9 +181,8 @@ export class Collections implements OnInit {
       const matchingMembers = group.members.filter(m => members.includes(m));
       if (matchingMembers.length == 3) {
         // Is one away
-
-        alert("One Away");
-        // TODO display 'one away' toast instead
+        // Display toast until next selection
+        this.showOneAwayToast.set(true);
       }
     }
   }
