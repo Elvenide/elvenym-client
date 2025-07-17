@@ -1,7 +1,7 @@
 :host {
     grid-column: span 4;
-    color: var(--theme-light);
-    background-color: palevioletred;
+    background-color: rgb(93, 0, 67);
+    color: rgb(225, 124, 197);
 
     display: flex;
     flex-direction: column;
@@ -12,24 +12,27 @@
 
     animation: forwards slide-in cubic-bezier(0.215, 0.610, 0.355, 1) 0.9s;
     z-index: 2;
+    border-radius: 8px;
 }
 
-/* TODO: change colors */
-
 :host:has(.group-1) {
-    background-color: paleturquoise;
+    background-color: rgb(0, 75, 133);
+    color: rgb(110, 192, 255);
 }
 
 :host:has(.group-2) {
-    background-color: palegreen;
+    background-color: rgb(0, 94, 55);
+    color: rgb(112, 206, 167);
 }
 
 :host:has(.group-3) {
-    background-color: palegoldenrod;
+    background-color: rgb(102, 14, 0);
+    color: rgb(235, 137, 122);
 }
 
 :host:has(.group-4) {
-    background-color: lavender;
+    background-color: rgb(54, 0, 124);
+    color: rgb(185, 142, 243);
 }
 
 h2 {

@@ -13,9 +13,10 @@
     font-weight: bold;
     color: var(--theme-lightest);
     transition: 0.2s all ease-in-out;
+    border-radius: 8px;
 }
 
-:host:not(.loading):not(.selected):hover {
+:host:not(.selected):hover {
     background-color: #23222f;
 }
 
@@ -24,11 +25,12 @@
 }
 
 :host.loading {
-    cursor: default;
+    pointer-events: none;
     animation: alternate infinite loading-skeleton linear 0.8s;
 }
 
 :host.invalid {
+    pointer-events: none;
     animation: forwards invalid-animation ease-in-out 0.3s;
 }
 
