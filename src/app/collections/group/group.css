@@ -1,8 +1,7 @@
 :host {
     grid-column: span 4;
-    /* TODO: make BG color dynamic based on group index */
-    background-color: palevioletred;
     color: var(--theme-light);
+    background-color: palevioletred;
 
     display: flex;
     flex-direction: column;
@@ -10,6 +9,24 @@
     justify-content: center;
     position: relative;
     overflow: hidden;
+}
+
+/* TODO: change colors */
+
+:host:has(.group-1) {
+    background-color: paleturquoise;
+}
+
+:host:has(.group-2) {
+    background-color: palegreen;
+}
+
+:host:has(.group-3) {
+    background-color: palegoldenrod;
+}
+
+:host:has(.group-4) {
+    background-color: lavender;
 }
 
 h2 {

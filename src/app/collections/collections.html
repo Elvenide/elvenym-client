@@ -19,7 +19,7 @@
     <div class="grid" [style]="`grid-template-rows: repeat(${LOADER.length / 4}, 1fr);`">
         @if (loaded()) {
             @for (group of foundGroups(); track group.group) {
-                <collections-group [name]="group.group" [members]="group.members" [difficulty]="group.difficulty" />
+                <collections-group [index]="$index" [name]="group.group" [members]="group.members" [difficulty]="group.difficulty" />
             }
             @for (members of enumerate(grid()); track $index) {
             @for (member of members; track $index) {
@@ -39,11 +39,12 @@
             @for (_ of [].constructor(lives()); track $index) {
                 <icon name="favorite" />
             }
+            <icon name="favorite" [style.color]="'transparent'" [style.width]="0" />
         </span>
     </div>
     <div class="separator"></div>
     <div class="row">
-        <button [disabled]="!loaded()" (click)="shuffle()">
+        <button [disabled]="!loaded() || grid().length == 0 || lives() <= 0" (click)="shuffle()">
             Shuffle
         </button>
         <button [disabled]="!loaded() || gridSelected().length == 0" (click)="clearSelection()">
@@ -66,8 +67,8 @@
         Victory!
     </span>
     Collections Found: 5/5<br />
-    Guesses: <b>?/5</b><br/>
-    Win Rate: <b>?%</b>
+    Lives Remaining: <b>{{lives()}}/5</b><br/>
+    Win Rate: <b>{{collections.getWins() / (collections.getWins() + collections.getLosses()) * 100}}%</b>
     <b style="color: #00cc00;">&nbsp;&plus;</b>
 </modal>
 
@@ -77,9 +78,9 @@
         <icon name="flag" />
         Defeat
     </span>
-    Collections Found: ?/5<br />
-    Guesses: <b>5/5</b><br/>
-    Win Rate: <b>?%</b>
+    Collections Found: {{foundGroups().length}}/5<br />
+    Lives Remaining: <b>0/5</b><br/>
+    Win Rate: <b>{{collections.getWins() / (collections.getWins() + collections.getLosses()) * 100}}%</b>
     <b style="color: #cc0000;">&nbsp;&ndash;</b>
 </modal>
 
@@ -87,4 +88,5 @@
 <modal [open]="showInfoModal()" (closeEvent)="showInfoModal.set(false);">
     <span modal-header>How to Collections</span>
     Insert info
+    <!-- TODO -->
 </modal>
