@@ -10,7 +10,7 @@
     position: relative;
     overflow: hidden;
 
-    animation: forwards slide-in cubic-bezier(0.215, 0.610, 0.355, 1) 0.5s;
+    animation: forwards slide-in cubic-bezier(0.215, 0.610, 0.355, 1) 0.9s;
 }
 
 /* TODO: change colors */
@@ -57,7 +57,7 @@ h2 {
 
 @keyframes slide-in {
     0% {
-        bottom: -50px;
+        bottom: -100px;
     }
 
     100% {

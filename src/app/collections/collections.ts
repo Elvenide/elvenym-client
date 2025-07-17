@@ -129,24 +129,26 @@ export class Collections implements OnInit {
       if (group.members.every(member => members.includes(member))) {
         // Found this group
 
-        groups.push(group);
-        this.foundGroups.set(groups);
+        setTimeout(() => {
+          groups.push(group);
+          this.foundGroups.set(groups);
 
-        members.forEach(member => {
-          const i = this.grid().indexOf(member);
-          this.grid().splice(i, 1);
-        });
+          members.forEach(member => {
+            const i = this.grid().indexOf(member);
+            this.grid().splice(i, 1);
+          });
 
-        this.clearSelection();
-        this.collections.saveGroups(groups, this.lives());
+          this.clearSelection();
+          this.collections.saveGroups(groups, this.lives());
 
-        if (groups.length == MAX_GROUPS) {
-          this.gameFinished = true;
-          this.collections.saveWin();
-          setTimeout(() => {
-            this.showWinModal.set(true);
-          }, 1000);
-        }
+          if (groups.length == MAX_GROUPS) {
+            this.gameFinished = true;
+            this.collections.saveWin();
+            setTimeout(() => {
+              this.showWinModal.set(true);
+            }, 1000);
+          }
+        }, 200);
 
         return;
       }
