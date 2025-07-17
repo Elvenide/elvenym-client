@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { Icon } from '../icon/icon';
 import { Modal } from '../modal/modal';
 import { CollectionsService } from './service';
-import { Member, MemberSelectEvent } from './member/member';
+import { Member } from './member/member';
 import { resetSeed, shuffle } from '../../utils/random';
 import { Group } from "./group/group";
 
@@ -23,6 +23,7 @@ export class Collections implements OnInit {
   protected gridSelected = signal([] as string[]);
   protected foundGroups = signal(CollectionsService.generateGroupArray());
   private gameFinished = false;
+  protected invalidAnimation = signal(false);
 
   protected showWinModal = signal(false);
   protected showLossModal = signal(false);
@@ -94,22 +95,20 @@ export class Collections implements OnInit {
     this.grid.set(members);
   }
 
-  selectMember(event: MemberSelectEvent) {
+  selectMember(word: string) {
     if (this.gameFinished)
       return;
 
     const selected = this.gridSelected();
-    const selectedIndex = selected.findIndex(s => s == event.text);
+    const selectedIndex = selected.findIndex(s => s == word);
 
     // If already selected, simply deselect
     if (selectedIndex != -1) {
-      event.toggleSelect();
       selected.splice(selectedIndex, 1);
     }
     // Otherwise, select if within selection limit
     else if (selected.length < 4) {
-      event.toggleSelect();
-      selected.push(event.text);
+      selected.push(word);
     }
 
     this.gridSelected.set(selected);
@@ -119,7 +118,6 @@ export class Collections implements OnInit {
     if (this.gameFinished)
       return;
 
-    this.collections.clearSelectionEvent.next();
     this.gridSelected.set([]);
   }
 
@@ -161,7 +159,8 @@ export class Collections implements OnInit {
     const newLives = this.lives() - 1;
     this.collections.saveGroups(groups, Math.max(newLives, 0));
     this.lives.set(newLives);
-    // TODO show incorrect animation
+    this.invalidAnimation.set(true);
+    setTimeout(() => this.invalidAnimation.set(false), 1000);
 
     if (newLives <= 0) {
       this.gameFinished = true;
@@ -169,6 +168,9 @@ export class Collections implements OnInit {
       setTimeout(() => {
         this.showLossModal.set(true);
       }, 1000);
+      return;
     }
+
+    // TODO check for one away
   }
 }

@@ -23,7 +23,7 @@
             }
             @for (members of enumerate(grid()); track $index) {
             @for (member of members; track $index) {
-                <collections-member [word]="member" (selectEvent)="selectMember($event)" />
+                <collections-member [word]="member" (selectEvent)="selectMember($event)" [class.invalid]="invalidAnimation() && gridSelected().includes(member)" [class.selected]="gridSelected().includes(member)" />
             }
             }
         }
@@ -90,3 +90,5 @@
     Insert info
     <!-- TODO -->
 </modal>
+
+<!-- TODO: toast for one away -->

@@ -28,6 +28,10 @@
     animation: alternate infinite loading-skeleton linear 0.8s;
 }
 
+:host.invalid {
+    animation: forwards invalid-animation ease-in-out 0.3s;
+}
+
 @keyframes loading-skeleton {
     0% {
         background-color: var(--theme-light);
@@ -35,5 +39,27 @@
 
     100% {
         background-color: var(--theme-dark);
+    }
+}
+
+@keyframes invalid-animation {
+    0% {
+        transform: translateX(0%);
+    }
+
+    25% {
+        transform: translateX(-30%);
+    }
+
+    50% {
+        transform: translateX(0%);
+    }
+
+    75% {
+        transform: translateX(30%);
+    }
+
+    100% {
+        transform: translateX(0%);
     }
 }
