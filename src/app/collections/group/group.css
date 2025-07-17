@@ -11,6 +11,7 @@
     overflow: hidden;
 
     animation: forwards slide-in cubic-bezier(0.215, 0.610, 0.355, 1) 0.9s;
+    z-index: 2;
 }
 
 /* TODO: change colors */
