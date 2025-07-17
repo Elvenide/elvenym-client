@@ -171,6 +171,15 @@ export class Collections implements OnInit {
       return;
     }
 
-    // TODO check for one away
+    // Check for one away
+    for (const group of this.collections.answer()) {
+      const matchingMembers = group.members.filter(m => members.includes(m));
+      if (matchingMembers.length == 3) {
+        // Is one away
+
+        alert("One Away");
+        // TODO display 'one away' toast instead
+      }
+    }
   }
 }
