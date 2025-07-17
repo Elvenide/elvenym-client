@@ -50,8 +50,7 @@ export class Collections implements OnInit {
     // Reset RNG seed
     resetSeed();
 
-    // TODO re-enable when not annoying
-    // this.showInfoModal.set(!this.collections.hasPlayedBefore());
+    this.showInfoModal.set(!this.collections.hasPlayedBefore());
 
     this.collections.fetchDailyAnswer()
       .subscribe(_ => {
@@ -60,8 +59,7 @@ export class Collections implements OnInit {
           if (!this.foundGroups().some(g => g.group == group.group))
             members.push(...group.members);
         }
-        // this.shuffle(members); TODO
-        this.grid.set(members);
+        this.shuffle(members);
 
         this.loaded.set(true);
         console.log("Fetched daily Collections data.");
