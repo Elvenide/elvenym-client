@@ -34,6 +34,11 @@
     user-select: none;
 }
 
+/* Reset baseline style for lists */
+ul, ol {
+    padding-inline-start: 1.1em;
+}
+
 /* Full sized flex body */
 html, body {
     width: 100%;

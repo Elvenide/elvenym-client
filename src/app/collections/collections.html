@@ -87,8 +87,27 @@
 <!-- Info Modal -->
 <modal [open]="showInfoModal()" (closeEvent)="showInfoModal.set(false);">
     <span modal-header>How to Collections</span>
-    Insert info
-    <!-- TODO -->
+    <ul>
+        <li>Find groups of 4 connected/related phrases</li>
+        <li>Must submit all 4 phrases of a group to get it</li>
+        <li>Uncover all {{LOADER.length/4}} groups to win</li>
+        <li>
+            You start with 
+            <span style="color: var(--theme);">
+                <icon name="favorite" />{{LOADER.length/4}} 
+            </span>
+            lives
+        </li>
+        <li>Lose a life for each incorrect group guess</li>
+    </ul>
+    <br/>
+    If you guess 3 out of 4 phrases in a group correctly,
+    you will see the following popup:
+    <br />
+    <br />
+    <toast class="toast-example">
+        One Away
+    </toast>
 </modal>
 
 <!-- Toast for "one away" alert -->
