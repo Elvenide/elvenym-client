@@ -1,37 +1,38 @@
 <!-- //Home Page -->
 <nav home [style.display]="user.getPage() == 'home' ? 'flex' : 'none'">
-    <div class="logo">
-        Elvenym
-    </div>
+    <a class="logo" href="/">
+        <img width="32" height="32" src="https://cdn.modrinth.com/data/KGYvRENp/f1837011260444f4628f318b538bf96e168c8b17_96.webp" />
+        lvenym
+    </a>
 </nav>
 <main home [style.display]="user.getPage() == 'home' ? 'flex' : 'none'">
     <button class="absurdle" (click)="user.setPage('absurdle')">
         <div>
-            <icon name="favorite" />
+            <icon name="grid_on" medium />
             <p>Absurdle</p>
         </div>
     </button>
     <button class="collections"  (click)="user.setPage('collections')">
         <div>
-            <icon name="favorite" />
+            <icon name="web_stories" medium />
             <p>Collections</p>
         </div>
     </button>
     <button disabled class="coming-soon tether">
         <div>
-            <icon name="favorite" />
+            <icon name="link" medium />
             <p>Tether</p>
         </div>
     </button>
     <button disabled class="coming-soon swelling-bee">
         <div>
-            <icon name="favorite" />
+            <icon name="hive" medium />
             <p>Swelling Bee</p>
         </div>
     </button>
     <button disabled class="coming-soon trend-market">
         <div>
-            <icon name="favorite" />
+            <icon name="whatshot" medium />
             <p>Trend Market</p>
         </div>
     </button>
