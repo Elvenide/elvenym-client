@@ -66,6 +66,10 @@ button {
     cursor: pointer;
 }
 
+b {
+    font-weight: bold;
+}
+
 /**/
 /* Game Styles */
 /**/
@@ -115,16 +119,6 @@ nav[game] > .logo {
     left: 50%;
     transform: translate(-50%, -50%);
     gap: 2px;
-}
-
-nav[game] > .logo > div {
-    border: 3px solid #303030;
-    height: 1.5em;
-    width: 1.5em;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2em;
 }
 
 nav[game] a {

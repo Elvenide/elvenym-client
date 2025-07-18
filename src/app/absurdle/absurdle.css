@@ -38,6 +38,12 @@
     margin-bottom: 8px;
 }
 
-b {
-    font-weight: bold;
+.logo > div {
+    border: 3px solid #303030;
+    height: 1.5em;
+    width: 1.5em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
 }
