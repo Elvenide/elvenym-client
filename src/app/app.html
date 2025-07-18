@@ -1,1 +1,46 @@
-<game-collections></game-collections>
+<!-- //Home Page -->
+<nav home [style.display]="user.getPage() == 'home' ? 'flex' : 'none'">
+    <div class="logo">
+        Elvenym
+    </div>
+</nav>
+<main home [style.display]="user.getPage() == 'home' ? 'flex' : 'none'">
+    <button class="absurdle" (click)="user.setPage('absurdle')">
+        <div>
+            <icon name="favorite" />
+            <p>Absurdle</p>
+        </div>
+    </button>
+    <button class="collections"  (click)="user.setPage('collections')">
+        <div>
+            <icon name="favorite" />
+            <p>Collections</p>
+        </div>
+    </button>
+    <button disabled class="coming-soon tether">
+        <div>
+            <icon name="favorite" />
+            <p>Tether</p>
+        </div>
+    </button>
+    <button disabled class="coming-soon swelling-bee">
+        <div>
+            <icon name="favorite" />
+            <p>Swelling Bee</p>
+        </div>
+    </button>
+    <button disabled class="coming-soon trend-market">
+        <div>
+            <icon name="favorite" />
+            <p>Trend Market</p>
+        </div>
+    </button>
+</main>
+<!-- Home Page// -->
+
+
+
+<!-- //Game Pages -->
+<game-collections [style.display]="user.getPage() == 'collections' ? 'flex' : 'none'"></game-collections>
+<game-absurdle [style.display]="user.getPage() == 'absurdle' ? 'flex' : 'none'"></game-absurdle>
+<!-- Game Pages// -->

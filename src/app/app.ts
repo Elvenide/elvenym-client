@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Absurdle } from './absurdle/absurdle';
 import { Collections } from "./collections/collections";
+import { UserService } from './user-service';
+import { Icon } from "./icon/icon";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',
-  imports: [/*Absurdle,*/ Collections]
+  imports: [Absurdle, Collections, Icon]
 })
 export class App {
-  protected title = 'client';
+  protected user = inject(UserService);
 }

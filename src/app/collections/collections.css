@@ -52,7 +52,6 @@ main button:active {
 
 main button:disabled {
     opacity: 0.5;
-    pointer-events: none;
 }
 
 .lives-hearts {
