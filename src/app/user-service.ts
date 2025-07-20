@@ -68,7 +68,12 @@ export class UserService {
   private user?: DiscordUser;
   private discordSdk?: DiscordSDK;
 
+  private page: string;
+
   constructor() {
+    const page = location.hash.replace("#", "");
+    this.page = supportedPages.has(page) ? page : "home";
+
     try {
       this.discordSdk = new DiscordSDK(clientId);
       console.log("Elvenym is running in Discord activity mode.");
@@ -86,12 +91,11 @@ export class UserService {
   }
 
   getPage() {
-    const page = location.hash.replace("#", "");
-    return supportedPages.has(page) ? page : "home";
+    return this.page;
   }
 
   setPage(page: string) {
-    location.href = "#" + page;
+    this.page = page;
   }
 
   isDiscord() {
