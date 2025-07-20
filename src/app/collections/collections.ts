@@ -6,12 +6,14 @@ import { Member } from './member/member';
 import { resetSeed, shuffle } from '../../utils/random';
 import { Group } from "./group/group";
 import { Toast } from "../toast/toast";
+import { UserService } from '../user-service';
+import { Avatar } from '../avatar/avatar';
 
 const MAX_GROUPS = 5;
 
 @Component({
   selector: 'game-collections',
-  imports: [Icon, Modal, Member, Group, Toast],
+  imports: [Icon, Modal, Member, Group, Toast, Avatar],
   templateUrl: './collections.html',
   styleUrl: './collections.css'
 })
@@ -32,6 +34,7 @@ export class Collections implements OnInit {
   protected showOneAwayToast = signal(false);
 
   protected collections = inject(CollectionsService);
+  protected user = inject(UserService);
 
   ngOnInit() {
     this.lives.set(this.collections.getLives(MAX_GROUPS));

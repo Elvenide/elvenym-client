@@ -18,6 +18,7 @@
     <button>
         <icon name="outline:leaderboard" medium />
     </button>
+    <avatar [url]="user.getAvatar()" [username]="user.getUsername()" />
 </nav>
 <main game>
     <div class="grid" [style]="`grid-template-rows: repeat(${LOADER.length / 4}, 1fr);`">

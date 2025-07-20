@@ -1,0 +1,19 @@
+@if (url) {
+    <div class="image" style="--avatar: url({{url}});">
+    </div>
+}
+@else {
+    <div class="image default-avatar">
+        <div class="head"></div>
+        <div class="body"></div>
+    </div>
+}
+
+<div class="label">
+    @if (username) {
+        {{"@" + username}}
+    }
+    @else {
+        Guest
+    }
+</div>

@@ -21,6 +21,7 @@
     <button>
         <icon name="outline:leaderboard" medium />
     </button>
+    <avatar [url]="user.getAvatar()" [username]="user.getUsername()" />
 </nav>
 <main game>
     @if (loaded()) {

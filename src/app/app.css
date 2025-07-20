@@ -10,6 +10,10 @@
     flex-direction: column;
 }
 
+nav[home] {
+    justify-content: flex-end;
+}
+
 nav[home] .logo {
     font-size: 2em;
     gap: 0px;

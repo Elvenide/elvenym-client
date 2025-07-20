@@ -1,0 +1,82 @@
+:host {
+    position: relative;
+    clip-path: ellipse(721.6px 6em at -43.51em);
+}
+
+.image {
+    width: calc(2em - 6px);
+    height: calc(2em - 6px);
+    border-radius: 100%;
+    background: var(--theme-light);
+    border: 3px solid var(--theme-light);
+    display: flex;
+    z-index: 3;
+    transition: 0.3s all ease-in-out;
+}
+
+.label {
+    position: absolute;
+    top: 50%;
+    left: 4px;
+    transform: translate(0%, -50%);
+    width: fit-content;
+    pointer-events: none;
+    font-size: 0.7em;
+    background: var(--theme-light);
+    color: transparent;
+    padding: 2px 4px 2px 5px;
+    transition: 0.5s all ease-in-out;
+    z-index: 2;
+    border-radius: 5px 0px 0px 5px;
+    font-weight: bold;
+}
+
+.image:hover ~ .label {
+    transform: translate(-100%, -50%);
+    animation: forwards 0.5s linear name-card;
+}
+
+@keyframes name-card {
+    80% {
+        color: transparent;
+    }
+
+    100% {
+        color: var(--color);
+    }
+}
+
+.default-avatar {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0;
+    border-color: var(--theme-lighter);
+}
+
+.default-avatar, .default-avatar ~ .label {
+    background: var(--theme-lighter);
+}
+
+.default-avatar .head {
+    background: var(--theme);
+    width: 0.45em;
+    height: 0.45em;
+    border-radius: 100%;
+}
+
+.default-avatar .body {
+    content: "";
+    background: var(--theme);
+    width: 0.85em;
+    height: 0.55em;
+    border-radius: 100% 100% 0 0;
+    margin-top: -1px;
+}
+
+.image:not(.default-avatar) {
+    background-image: var(--avatar);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}

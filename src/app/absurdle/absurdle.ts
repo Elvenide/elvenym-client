@@ -4,12 +4,14 @@ import { Keyboard } from './keyboard/keyboard';
 import { AbsurdleService } from './service';
 import { Icon } from '../icon/icon';
 import { Modal } from "../modal/modal";
+import { UserService } from '../user-service';
+import { Avatar } from '../avatar/avatar';
 
 const MAX_GUESSES = 5;
 
 @Component({
   selector: 'game-absurdle',
-  imports: [Row, Keyboard, Icon, Modal],
+  imports: [Row, Keyboard, Icon, Modal, Avatar],
   templateUrl: './absurdle.html',
   styleUrl: './absurdle.css'
 })
@@ -23,7 +25,9 @@ export class Absurdle implements OnInit {
   protected showWinModal = signal(false);
   protected showLossModal = signal(false);
   protected showInfoModal = signal(false);
+
   protected absurdle = inject(AbsurdleService);
+  protected user = inject(UserService);
 
   ngOnInit() {
     this.activeRow = this.absurdle.getActiveRow();

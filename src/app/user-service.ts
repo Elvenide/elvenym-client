@@ -98,9 +98,23 @@ export class UserService {
     return !!this.discordSdk;
   }
 
-  getUser(): DiscordUser {
-    return this.user!;
+  getId() {
+    return this.user?.id;
   }
+
+  getUsername() {
+    return this.user?.username;
+  }
+
+  getAvatar() {
+    if (!this.user)
+      return undefined;
+
+    return "https://cdn.discordapp.com/avatars/"
+      + this.user.id + "/"
+      + this.user.avatar;
+  }
+
 }
 
 // TODO: support loading/saving user data in Discord activity
