@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { UserService } from '../user-service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,8 @@ export class AbsurdleService {
   private _answer: string = "";
   private _guesses: Set<string> = new Set();
   public keyPressEvent = new Subject<string>();
+
+  protected user = inject(UserService);
 
   constructor() { }
 
@@ -72,20 +75,20 @@ export class AbsurdleService {
   }
 
   public saveGuesses(guesses: [string, number][], activeRow: number) {
-    localStorage.setItem("absurdle_guesses", JSON.stringify(guesses));
-    localStorage.setItem("absurdle_row", "" + activeRow);
-    localStorage.setItem("absurdle_day", new Date().toISOString());
-    localStorage.setItem("absurdle_has_played", "true");
+    this.user.saveGameProgress("absurdle", {
+      guesses: JSON.stringify(guesses),
+      row: "" + activeRow,
+      day: new Date().toISOString(),
+      has_played: "true"
+    });
   }
 
   public saveWin() {
-    const wins = this.getWins() + 1;
-    localStorage.setItem("absurdle_wins", "" + wins);
+    this.user.saveGameEnd("win", "absurdle");
   }
 
   public saveLoss() {
-    const losses = this.getLosses() + 1;
-    localStorage.setItem("absurdle_losses", "" + losses);
+    this.user.saveGameEnd("loss", "absurdle");
   }
 
   public getWins() {

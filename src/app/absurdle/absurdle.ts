@@ -17,7 +17,7 @@ const MAX_GUESSES = 5;
 })
 export class Absurdle implements OnInit {
   public loaded = signal(false);
-  protected guesses: WritableSignal<[string, number][]> = signal(AbsurdleService.generateGuessArray(MAX_GUESSES));
+  protected guesses: WritableSignal<[string, number][]> = signal([]);
   protected activeRow = 0;
   protected isTyping = false;
   protected isInvalid = signal(false);
@@ -30,6 +30,7 @@ export class Absurdle implements OnInit {
   protected user = inject(UserService);
 
   ngOnInit() {
+    this.guesses.set(AbsurdleService.generateGuessArray(MAX_GUESSES));
     this.activeRow = this.absurdle.getActiveRow();
     if (this.activeRow >= MAX_GUESSES) {
       this.gameFinished = true;
@@ -84,6 +85,8 @@ export class Absurdle implements OnInit {
       
       this.activeRow++;
       this.guesses.set(guesses);
+      this.absurdle.saveGuesses(guesses, this.activeRow);
+
       if (this.activeRow >= MAX_GUESSES || isWin) {
         this.gameFinished = true;
         this.activeRow = MAX_GUESSES;
@@ -112,8 +115,6 @@ export class Absurdle implements OnInit {
       guesses[this.activeRow][0] += key;
       this.guesses.set(guesses);
     }
-
-    this.absurdle.saveGuesses(guesses, this.activeRow);
   }
 
   protected onWin() {

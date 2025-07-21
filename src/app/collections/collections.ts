@@ -24,7 +24,7 @@ export class Collections implements OnInit {
   protected lives = signal(0);
   protected grid = signal([] as string[]);
   protected gridSelected = signal([] as string[]);
-  protected foundGroups = signal(CollectionsService.generateGroupArray());
+  protected foundGroups = signal([] as CollectionsGroup[]);
   private gameFinished = false;
   protected invalidAnimation = signal(false);
 
@@ -37,6 +37,7 @@ export class Collections implements OnInit {
   protected user = inject(UserService);
 
   ngOnInit() {
+    this.foundGroups.set(CollectionsService.generateGroupArray());
     this.lives.set(this.collections.getLives(MAX_GROUPS));
     if (this.lives() <= 0) {
       this.gameFinished = true;

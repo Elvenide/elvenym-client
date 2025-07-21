@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { UserService } from '../user-service';
 
 export interface CollectionsGroup {
     difficulty: number;
@@ -13,6 +14,7 @@ export interface CollectionsGroup {
 export class CollectionsService {
 
   private _answer: CollectionsGroup[] = [];
+  protected user = inject(UserService);
 
   constructor() { }
 
@@ -70,20 +72,20 @@ export class CollectionsService {
   }
 
   public saveGroups(groups: CollectionsGroup[], lives: number) {
-    localStorage.setItem("collections_groups", JSON.stringify(groups));
-    localStorage.setItem("collections_day", new Date().toISOString());
-    localStorage.setItem("collections_has_played", "true");
-    localStorage.setItem("collections_lives", "" + lives);
+    this.user.saveGameProgress("collections", {
+      groups: JSON.stringify(groups),
+      day: new Date().toISOString(),
+      has_played: "true",
+      lives: "" + lives
+    });
   }
 
   public saveWin() {
-    const wins = this.getWins() + 1;
-    localStorage.setItem("collections_wins", "" + wins);
+    this.user.saveGameEnd("win", "collections");
   }
 
   public saveLoss() {
-    const losses = this.getLosses() + 1;
-    localStorage.setItem("collections_losses", "" + losses);
+    this.user.saveGameEnd("loss", "collections");
   }
 
   public getWins() {
