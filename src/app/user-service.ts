@@ -350,4 +350,23 @@ export class UserService {
     setInfo(this.getId()!, game, info);
   }
 
+  /**
+   * Gets data for all users in the current group,
+   * except the current user.
+   */
+  getOtherUsers(): User[] {
+    if (!this.group || !this.user)
+      return [];
+
+    const remainingGroup = [];
+    for (const userId in this.group.users) {
+      if (userId == this.getId())
+        continue;
+
+      remainingGroup.push(this.group.users[userId]);
+    }
+
+    return remainingGroup;
+  }
+
 }
