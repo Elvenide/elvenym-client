@@ -40,10 +40,67 @@
 
 .logo > div {
     border: 3px solid #303030;
-    height: 1.5em;
-    width: 1.5em;
+    /* width: fit-content;
+    height: fit-content; */
+    max-width: 0;
+    max-height: 0;
+    padding: 0.7em;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     font-size: 1.2em;
+    animation: forwards 8s 1s linear logo-inner-animation;
+}
+
+@keyframes logo-inner-animation {
+    0% {
+        border-color: #303030;
+        border-width: 3px;
+        background-color: transparent;
+        padding: 0.7em;
+    }
+
+    37% {
+        border-color: #16a216;
+        border-width: 3px;
+        background-color: #16a216;
+        padding: 0.7em;
+    }
+
+    /* At 6s */
+    75% {
+        border-color: #16a216;
+        border-width: 0px;
+        background-color: #16a216;
+        padding: 0.5em;
+    }
+
+    100% {
+        border-width: 0px;
+        background-color: transparent;
+        padding: 0.5em;
+    }
+}
+
+.logo {
+    background-color: transparent;
+    border-radius: 0px;
+    gap: 2px;
+    animation: forwards 3s 7s linear logo-animation;
+}
+
+@keyframes logo-animation {
+    0% {
+        gap: 2px;
+        background-color: transparent;
+        padding: 2px 8px;
+        border-radius: 0px;
+    }
+
+    100% {
+        gap: 0px;
+        background-color: #16a216;
+        padding: 2px 8px;
+        border-radius: 5px;
+    }
 }
