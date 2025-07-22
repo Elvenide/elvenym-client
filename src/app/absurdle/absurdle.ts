@@ -17,6 +17,7 @@ const MAX_GUESSES = 5;
 })
 export class Absurdle implements OnInit {
   public loaded = signal(false);
+  protected maxGuesses = [].constructor(MAX_GUESSES);
   protected guesses: WritableSignal<[string, number][]> = signal([]);
   protected activeRow = 0;
   protected isTyping = false;
@@ -58,6 +59,9 @@ export class Absurdle implements OnInit {
     });
 
     document.addEventListener("keyup", e => {
+      if (this.gameFinished || !this.loaded())
+        return;
+      
       const key = e.key.toLowerCase();
       if (key == "enter" || key == "backspace")
         e.preventDefault();
@@ -67,7 +71,7 @@ export class Absurdle implements OnInit {
   }
 
   protected onKeyPress(key: string) {
-    if (this.gameFinished)
+    if (this.gameFinished || !this.loaded())
         return;
       
     const guesses = [...this.guesses()];

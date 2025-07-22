@@ -36,7 +36,9 @@ export class AbsurdleService {
         .then(data => {
           this._answer = data.answer;
           this._guesses = new Set(data.guesses);
-          observer.next(true)
+          setTimeout(() => {
+            observer.next(true);
+          }, 1500);
         });
     });
   }

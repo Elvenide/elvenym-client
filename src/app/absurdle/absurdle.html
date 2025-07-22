@@ -28,7 +28,9 @@
         }
     }
     @else {
-        Loading...
+        @for (guess of maxGuesses; track $index) {
+        <absurdle-row [shouldTypeAnimate]="false" [shouldInvalidAnimate]="false" class="loading"></absurdle-row>
+        }
     }
     <div class="separator"></div>
     <absurdle-keyboard [correctKeys]="getCorrectKeys()" [incorrectKeys]="getIncorrectKeys()" [misplacedKeys]="getMisplacedKeys()"></absurdle-keyboard>

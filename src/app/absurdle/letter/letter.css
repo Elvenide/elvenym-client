@@ -96,3 +96,19 @@
     text-align: center;
     pointer-events: none;
 }
+
+.loading > :host > .box {
+    border-color: transparent;
+    pointer-events: none;
+    animation: alternate infinite loading-skeleton linear 0.8s;
+}
+
+@keyframes loading-skeleton {
+    0% {
+        background-color: var(--theme-light);
+    }
+
+    100% {
+        background-color: var(--theme-dark);
+    }
+}
