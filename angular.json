@@ -52,7 +52,7 @@
         "serve": {
           "builder": "@angular/build:dev-server",
           "options": {
-            "allowedHosts": ["elvenym-activity.elvenide.com"],
+            "allowedHosts": ["games.elvenide.com"],
             "port": 4200,
             "proxyConfig": "src/proxy.conf.json"
           },
