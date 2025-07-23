@@ -1,14 +1,15 @@
 @if (!user.isDiscord() || user.isDiscordReady()) {
 
 <!-- //Home Page -->
-<nav home [style.display]="user.getPage() == 'home' ? 'flex' : 'none'">
+@if (user.getPage() == 'home') {
+<nav home>
     <a class="logo" href="/">
         <img width="32" height="32" src="logo.png" />
         lvenym
     </a>
     <avatar [url]="user.getAvatar()" [username]="user.getUsername()" />
 </nav>
-<main home [style.display]="user.getPage() == 'home' ? 'flex' : 'none'">
+<main home>
     <button class="absurdle" (click)="user.setPage('absurdle')">
         <div>
             <icon name="grid_on" medium />
@@ -40,13 +41,18 @@
         </div>
     </button>
 </main>
+}
 <!-- Home Page// -->
 
 
 
 <!-- //Game Pages -->
-<game-collections [style.display]="user.getPage() == 'collections' ? 'flex' : 'none'"></game-collections>
-<game-absurdle [style.display]="user.getPage() == 'absurdle' ? 'flex' : 'none'"></game-absurdle>
+@else if (user.getPage() == 'collections') {
+<game-collections></game-collections>
+}
+@else if (user.getPage() == 'absurdle') {
+<game-absurdle></game-absurdle>
+}
 <!-- Game Pages// -->
 
 }
