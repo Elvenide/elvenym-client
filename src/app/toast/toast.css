@@ -35,5 +35,5 @@
 
 :host:not(.toast-example) .toast.show {
     visibility: visible;
-    top: 15px;
+    top: calc(15px + var(--inset-top));
 }
