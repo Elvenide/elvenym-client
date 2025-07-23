@@ -21,9 +21,6 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.css"
-            ],
             "outputPath": "../server/dist/client"
           },
           "configurations": {
