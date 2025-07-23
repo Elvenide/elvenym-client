@@ -31,6 +31,11 @@ export class AbsurdleService {
 
   public fetchDailyAnswer(): Observable<any> {
     return new Observable((observer) => {
+      if (this.isLoaded()) {
+        observer.next(this._answer);
+        return;
+      }
+      
       fetch("/api/absurdle/words")
         .then(b => b.json())
         .then(data => {

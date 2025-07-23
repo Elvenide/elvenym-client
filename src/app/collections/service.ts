@@ -28,6 +28,11 @@ export class CollectionsService {
 
   public fetchDailyAnswer(): Observable<any> {
     return new Observable((observer) => {
+      if (this.isLoaded()) {
+        observer.next(this._answer);
+        return;
+      }
+
       fetch("/api/collections/answers")
         .then(b => b.json())
         .then(data => {
