@@ -58,16 +58,18 @@ export class Absurdle implements OnInit {
       this.onKeyPress(key);
     });
 
-    document.addEventListener("keyup", e => {
-      if (this.gameFinished || !this.loaded())
-        return;
-      
-      const key = e.key.toLowerCase();
-      if (key == "enter" || key == "backspace")
-        e.preventDefault();
+    if (!this.absurdle.isLoaded()) {
+      document.addEventListener("keyup", e => {
+        if (this.gameFinished || !this.loaded())
+          return;
+        
+        const key = e.key.toLowerCase();
+        if (key == "enter" || key == "backspace")
+          e.preventDefault();
 
-      this.absurdle.keyPressEvent.next(key);
-    });
+        this.absurdle.keyPressEvent.next(key);
+      });
+    }
   }
 
   protected onKeyPress(key: string) {
